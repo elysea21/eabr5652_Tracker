@@ -1,2 +1,71 @@
 @import 'typography';
 @import 'layout';
+
+body,
+html {
+  height: 100%;
+  margin: 0rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: "Nunito", sans-serif;
+  background-color: var(--black);
+  color: var(--white);
+}
+
+a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background-color: var(--black);
+  padding: 0.5rem;
+}
+
+.sidebar {
+  flex: 0.25;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  margin-right: 0.5rem;
+}
+
+.top-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 0.5rem;
+  background-color: var(--grey);
+  border-radius: 0.5rem;
+}
+
+.link-flex {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  align-items: center;
+  opacity: 0.7;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.link-flex:hover {
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+.link-flex img {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+.link-flex p {
+  font-size: 1rem;
+  color: var(--white);
+}
