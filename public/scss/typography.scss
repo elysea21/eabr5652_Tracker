@@ -1,3 +1,16 @@
-body {
-    color: purple; /* set the text color */
+body,
+html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: "Nunito Sans", sans-serif;
+    background-color: var(--black);
+    color: var(--white);
+}
+
+a {
+    color: var(--white);
+    text-decoration: none;
 }
