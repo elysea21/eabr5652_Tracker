@@ -1,26 +1,214 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>repl.it</title>
-  <link href="./scss/main.scss" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Spotify - Web Player: Music for everyone</title>
+  <meta name="description" content="Spotify clone made using html,css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./scss/main.scss" />
+<!--  <link rel="icon" type="image/x-icon" href="./assets/logo.png" />-->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
 <body>
 <div class="container">
   <div class="sidebar">
     <div class="top-icons">
       <div class="link-flex">
-        <img src="#" alt="Home" />
-        <a href="#">Home</a>
+        <span class="material-icons">home</span>
+        <a href="#" class="nav-link" data-target="home">HOME</a>
       </div>
-      <div class="link-flex">
-        <img src="#" alt="Search" />
-        <a href="#">Search</a>
+      <div class="link-flex" id="searchButton">
+        <span class="material-icons">search</span>
+        <a href="#" class="nav-link" data-target="search">SEARCH</a>
+      </div>
+      <input type='hidden' id='hidden_token'>
+    </div>
+    <div class="library">
+      <div class="flex-top">
+        <div class="link-flex">
+          <span class="material-icons">library_music</span>
+          <p class = "library">LIBRARY</p>
+        </div>
+      </div>
+      <div class="link-flex" style="gap: 0.5rem">
+        <div class="chip" id="playlists-chip">Playlists</div>
+      </div>
+      <div class="link-flex" style="gap: 0.5rem">
+        <div class="chip" id="reviewed-songs-chip">Reviewed Songs</div>
+      </div>
+      <div class="albums" id="playlists-section" style="display: none;">
+        <h3>Playlists</h3>
+        <div id="playlists" class="playlists">
+          <!-- Playlists will be appended here -->
+        </div>
+      </div>
+      <div class="albums" id="reviewed-songs-section" style="display: none;">
+        <h3>Reviewed Songs</h3>
+        <div id="reviewed-songs" class="reviewed-songs">
+          <!-- Reviewed songs will be appended here -->
+        </div>
       </div>
     </div>
+  </div>
+  <div class="main-content" id="home">
+    <div class="header">
+      <h1 class="heading">SONGS</h1>
+      <div class="genre-dropdown">
+        <h3 id="genre-label">Genres </h3>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <select id="genre-options" class="">
+          <!-- Options will be dynamically populated here -->
+        </select>
+      </div>
+    </div>
+    <div id="recommendations" class="scroll-container">
+      <!-- Song cards will be inserted here by JavaScript -->
+    </div>
+  </div>
 
+  <div class="main-content" id="search" style="display:none;">
+    <h1 class="heading">SEARCH</h1>
+    <form id="searchForm">
+      <input type="text" id="searchInput" placeholder="Search for artist or song">
+    </form>
+    <div id="autocomplete-results" class="scroll-container">
+      <!-- Autocomplete suggestions will be inserted here by JavaScript -->
+    </div>
+    <div id="search-results" class="scroll-container">
+      <!-- Search results will be inserted here by JavaScript -->
+    </div>
+  </div>
 
+  <div class="main-content" id="review" style="display:none;">
+    <div class="song-details">
+      <input type='hidden' id='trackId'>
+      <input type='hidden' id='artistId'>
+      <h2 id="song-title"></h2>
+      <h3 id="song-artist"></h3>
+      <div class="song-info">
+        <div class="song-info-left">
+          <p>Danceability</p>
+          <p>Time Signature</p>
+          <p>Tempo</p>
+          <p>Energy</p>
+          <p>Key</p>
+        </div>
+        <div class="song-info-right">
+          <p id="danceability"></p>
+          <p id="time-signature"></p>
+          <p id="tempo"></p>
+          <p id="energy"></p>
+          <p id="key"></p>
+        </div>
+      </div>
+      <div class="song-artwork">
+        <img src="./images/album_placeholder.jpeg" id="song-artwork" alt="Dark Fantasy">
+      </div>
+      <div class="song-rating">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <p id="rating-score"></p>
+      </div>
+    </div>
+    <div class="song-review">
+      <div class="song-info">
+        <div class="song-info-left">
+          <p>Rating</p>
+          <p>Listening Frequency</p>
+          <p>Mood</p>
+          <p>Skip Rate</p>
+        </div>
+        <div class="song-info-right">
+          <div class="rating-emojis">
+            <span class="material-symbols-outlined">star_rate</span>
+            <span class="material-symbols-outlined">star_rate</span>
+            <span class="material-symbols-outlined">star_rate</span>
+            <span class="material-symbols-outlined">star_rate</span>
+            <span class="material-symbols-outlined">star_rate</span>
+          </div>
+          <div class="frequency-emojis">
+            <span class="material-symbols-outlined">headphones</span>
+            <span class="material-symbols-outlined">headphones</span>
+            <span class="material-symbols-outlined">headphones</span>
+            <span class="material-symbols-outlined">headphones</span>
+            <span class="material-symbols-outlined">headphones</span>
+          </div>
+          <div class="mood-emojis">
+            <span class="material-symbols-outlined">sentiment_very_dissatisfied</span>
+            <span class="material-symbols-outlined">sentiment_dissatisfied</span>
+            <span class="material-symbols-outlined">Sentiment_calm</span>
+            <span class="material-symbols-outlined">sentiment_satisfied</span>
+            <span class="material-symbols-outlined">sentiment_very_satisfied</span>
+          </div>
+          <div class="skip-emojis">
+            <span class="material-symbols-outlined">skip_next</span>
+            <span class="material-symbols-outlined">skip_next</span>
+            <span class="material-symbols-outlined">skip_next</span>
+            <span class="material-symbols-outlined">skip_next</span>
+            <span class="material-symbols-outlined">skip_next</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-section">
+        <h3>Add Review</h3>
+        <input type="text" id="reviewInput" placeholder="Write your review...">
+        <button id="uploadButton">Upload</button>
+        <h3>REVIEWS</h3>
+        <div id="reviews">
+          <!-- Reviews will be appended here -->
+        </div>
+      </div>
+      <div class="favourite-section">
+        <button id="favButton">Create a playlist based on this track</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="playlist-details" class="main-content" style="display: none;">
+    <div class="playlist-details">
+      <div class="header">
+        <h1 class="heading">PLAYLISTS</h1>
+        <button id="delete-button" class="delete-button">Delete Playlist</button>
+      </div>
+      <div id="favRecommendations" class="scroll-container">
+        <!-- Song cards will be inserted here by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <div id="review-details" class="main-content" style="display: none;">
+    <div class="review-details">
+      <img id="songArtwork" src="./images/album_placeholder.jpeg" alt="">
+      <h1 id="songTitle"></h1>
+      <h2 id="songArtist"></h2>
+      <p id="reviewDate"></p>
+      <p id="reviewText"></p>
+      <div class="additional-details">
+        <div class="detail-item">
+          <p>Rating:</p>
+          <span id="rating-emojis"></span>
+        </div>
+        <div class="detail-item">
+          <p>Listening Frequency:</p>
+          <span id="listeningFrequency"></span>
+        </div>
+        <div class="detail-item">
+          <p>Mood:</p>
+          <span id="mood"></span>
+        </div>
+        <div class="detail-item">
+          <p>Skip Rate:</p>
+          <span id="skipRate"></span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
