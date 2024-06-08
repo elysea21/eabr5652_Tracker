@@ -1,15 +1,15 @@
 import {clientId} from "../config";
 import {clientSecret} from "../config";
 
-const APIController = (function() {
+const APIController = (function () {
 
     // private methods
     const _getToken = async () => {
         const result = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/x-www-form-urlencoded',
-                'Authorization' : 'Basic ' + btoa(clientId + ':' + clientSecret)
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
             },
             body: 'grant_type=client_credentials'
         });
@@ -21,7 +21,7 @@ const APIController = (function() {
     const _getGenres = async (token) => {
         const result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=en_AU`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
+            headers: {'Authorization': 'Bearer ' + token}
         });
 
         const data = await result.json();
@@ -38,351 +38,8 @@ const APIController = (function() {
 
         const result = await fetch(`https://api.spotify.com/v1/recommendations?limit=4&market=${market}&seed_artist=${seed_artists}&seed_genres=${lowerCaseSeedGenres}&min_tempo=${min_tempo}&max_tempo=${max_tempo}`, {
             method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + token }
+            headers: {'Authorization': 'Bearer ' + token}
         });
-        /*
-                const data = {
-                    "tracks" : [
-                        {
-                            "album" : {
-                                "album_type" : "ALBUM",
-                                "artists" : [
-                                    {
-                                        "external_urls" : {
-                                            "spotify" : "https://open.spotify.com/artist/6hfwwpXqZPRC9CsKI7qtv1"
-                                        },
-                                        "href" : "https://api.spotify.com/v1/artists/6hfwwpXqZPRC9CsKI7qtv1",
-                                        "id" : "6hfwwpXqZPRC9CsKI7qtv1",
-                                        "name" : "Alina Baraz",
-                                        "type" : "artist",
-                                        "uri" : "spotify:artist:6hfwwpXqZPRC9CsKI7qtv1"
-                                    }
-                                ],
-                                "external_urls" : {
-                                    "spotify" : "https://open.spotify.com/album/6R8UeugxGTPvPwFkLVqUqs"
-                                },
-                                "href" : "https://api.spotify.com/v1/albums/6R8UeugxGTPvPwFkLVqUqs",
-                                "id" : "6R8UeugxGTPvPwFkLVqUqs",
-                                "images" : [
-                                    {
-                                        "height" : 640,
-                                        "url" : "https://i.scdn.co/image/ab67616d0000b2733c054a9aaef660a1fabf87aa",
-                                        "width" : 640
-                                    },
-                                    {
-                                        "height" : 300,
-                                        "url" : "https://i.scdn.co/image/ab67616d00001e023c054a9aaef660a1fabf87aa",
-                                        "width" : 300
-                                    },
-                                    {
-                                        "height" : 64,
-                                        "url" : "https://i.scdn.co/image/ab67616d000048513c054a9aaef660a1fabf87aa",
-                                        "width" : 64
-                                    }
-                                ],
-                                "is_playable" : true,
-                                "name" : "The Color Of You",
-                                "release_date" : "2018-04-06",
-                                "release_date_precision" : "day",
-                                "total_tracks" : 9,
-                                "type" : "album",
-                                "uri" : "spotify:album:6R8UeugxGTPvPwFkLVqUqs"
-                            },
-                            "artists" : [
-                                {
-                                    "external_urls" : {
-                                        "spotify" : "https://open.spotify.com/artist/6hfwwpXqZPRC9CsKI7qtv1"
-                                    },
-                                    "href" : "https://api.spotify.com/v1/artists/6hfwwpXqZPRC9CsKI7qtv1",
-                                    "id" : "6hfwwpXqZPRC9CsKI7qtv1",
-                                    "name" : "Alina Baraz",
-                                    "type" : "artist",
-                                    "uri" : "spotify:artist:6hfwwpXqZPRC9CsKI7qtv1"
-                                },
-                                {
-                                    "external_urls" : {
-                                        "spotify" : "https://open.spotify.com/artist/6LuN9FCkKOj5PcnpouEgny"
-                                    },
-                                    "href" : "https://api.spotify.com/v1/artists/6LuN9FCkKOj5PcnpouEgny",
-                                    "id" : "6LuN9FCkKOj5PcnpouEgny",
-                                    "name" : "Khalid",
-                                    "type" : "artist",
-                                    "uri" : "spotify:artist:6LuN9FCkKOj5PcnpouEgny"
-                                }
-                            ],
-                            "disc_number" : 1,
-                            "duration_ms" : 246327,
-                            "explicit" : false,
-                            "external_ids" : {
-                                "isrc" : "USQE91500375"
-                            },
-                            "external_urls" : {
-                                "spotify" : "https://open.spotify.com/track/2mj7x99sNUsVHPBRK51zlG"
-                            },
-                            "href" : "https://api.spotify.com/v1/tracks/2mj7x99sNUsVHPBRK51zlG",
-                            "id" : "2mj7x99sNUsVHPBRK51zlG",
-                            "is_local" : false,
-                            "is_playable" : true,
-                            "name" : "Electric (feat. Khalid)",
-                            "popularity" : 66,
-                            "preview_url" : "https://p.scdn.co/mp3-preview/131946f840063498a8439b4734e982d19ac29768?cid=d8945f225c194eaba066d5894f148d4a",
-                            "track_number" : 9,
-                            "type" : "track",
-                            "uri" : "spotify:track:2mj7x99sNUsVHPBRK51zlG"
-                        },
-                        {
-                            "album" : {
-                                "album_type" : "ALBUM",
-                                "artists" : [
-                                    {
-                                        "external_urls" : {
-                                            "spotify" : "https://open.spotify.com/artist/2EMAnMvWE2eb56ToJVfCWs"
-                                        },
-                                        "href" : "https://api.spotify.com/v1/artists/2EMAnMvWE2eb56ToJVfCWs",
-                                        "id" : "2EMAnMvWE2eb56ToJVfCWs",
-                                        "name" : "Bryson Tiller",
-                                        "type" : "artist",
-                                        "uri" : "spotify:artist:2EMAnMvWE2eb56ToJVfCWs"
-                                    }
-                                ],
-                                "external_urls" : {
-                                    "spotify" : "https://open.spotify.com/album/7nn2Iaphg0Vc1NCGULkhVo"
-                                },
-                                "href" : "https://api.spotify.com/v1/albums/7nn2Iaphg0Vc1NCGULkhVo",
-                                "id" : "7nn2Iaphg0Vc1NCGULkhVo",
-                                "images" : [
-                                    {
-                                        "height" : 640,
-                                        "url" : "https://i.scdn.co/image/ab67616d0000b273202e628665f6ae3789c998c1",
-                                        "width" : 640
-                                    },
-                                    {
-                                        "height" : 300,
-                                        "url" : "https://i.scdn.co/image/ab67616d00001e02202e628665f6ae3789c998c1",
-                                        "width" : 300
-                                    },
-                                    {
-                                        "height" : 64,
-                                        "url" : "https://i.scdn.co/image/ab67616d00004851202e628665f6ae3789c998c1",
-                                        "width" : 64
-                                    }
-                                ],
-                                "is_playable" : true,
-                                "name" : "True to Self",
-                                "release_date" : "2017-05-26",
-                                "release_date_precision" : "day",
-                                "total_tracks" : 19,
-                                "type" : "album",
-                                "uri" : "spotify:album:7nn2Iaphg0Vc1NCGULkhVo"
-                            },
-                            "artists" : [
-                                {
-                                    "external_urls" : {
-                                        "spotify" : "https://open.spotify.com/artist/2EMAnMvWE2eb56ToJVfCWs"
-                                    },
-                                    "href" : "https://api.spotify.com/v1/artists/2EMAnMvWE2eb56ToJVfCWs",
-                                    "id" : "2EMAnMvWE2eb56ToJVfCWs",
-                                    "name" : "Bryson Tiller",
-                                    "type" : "artist",
-                                    "uri" : "spotify:artist:2EMAnMvWE2eb56ToJVfCWs"
-                                }
-                            ],
-                            "disc_number" : 1,
-                            "duration_ms" : 194266,
-                            "explicit" : true,
-                            "external_ids" : {
-                                "isrc" : "USRC11700909"
-                            },
-                            "external_urls" : {
-                                "spotify" : "https://open.spotify.com/track/3Jrs7cC2OJNlNSy9VnDOMZ"
-                            },
-                            "href" : "https://api.spotify.com/v1/tracks/3Jrs7cC2OJNlNSy9VnDOMZ",
-                            "id" : "3Jrs7cC2OJNlNSy9VnDOMZ",
-                            "is_local" : false,
-                            "is_playable" : true,
-                            "name" : "Somethin Tells Me",
-                            "popularity" : 50,
-                            "preview_url" : "https://p.scdn.co/mp3-preview/2a764bd65bf948751e88b9f5f2b2e6d272cc7dc9?cid=d8945f225c194eaba066d5894f148d4a",
-                            "track_number" : 18,
-                            "type" : "track",
-                            "uri" : "spotify:track/3Jrs7cC2OJNlNSy9VnDOMZ"
-                        },
-                        {
-                            "album" : {
-                                "album_type" : "ALBUM",
-                                "artists" : [
-                                    {
-                                        "external_urls" : {
-                                            "spotify" : "https://open.spotify.com/artist/6T5tfhQCknKG4UnH90qGnz"
-                                        },
-                                        "href" : "https://api.spotify.com/v1/artists/6T5tfhQCknKG4UnH90qGnz",
-                                        "id" : "6T5tfhQCknKG4UnH90qGnz",
-                                        "name" : "DNCE",
-                                        "type" : "artist",
-                                        "uri" : "spotify:artist/6T5tfhQCknKG4UnH90qGnz"
-                                    }
-                                ],
-                                "external_urls" : {
-                                    "spotify" : "https://open.spotify.com/album/3Wv4X8OA65pGpFzBkuUgAh"
-                                },
-                                "href" : "https://api.spotify.com/v1/albums/3Wv4X8OA65pGpFzBkuUgAh",
-                                "id" : "3Wv4X8OA65pGpFzBkuUgAh",
-                                "images" : [
-                                    {
-                                        "height" : 640,
-                                        "url" : "https://i.scdn.co/image/ab67616d0000b2738d0a75346badc30c8b845be9",
-                                        "width" : 640
-                                    },
-                                    {
-                                        "height" : 300,
-                                        "url" : "https://i.scdn.co/image/ab67616d00001e028d0a75346badc30c8b845be9",
-                                        "width" : 300
-                                    },
-                                    {
-                                        "height" : 64,
-                                        "url" : "https://i.scdn.co/image/ab67616d000048518d0a75346badc30c8b845be9",
-                                        "width" : 64
-                                    }
-                                ],
-                                "is_playable" : true,
-                                "name" : "DNCE",
-                                "release_date" : "2016-11-18",
-                                "release_date_precision" : "day",
-                                "total_tracks" : 14,
-                                "type" : "album",
-                                "uri" : "spotify:album/3Wv4X8OA65pGpFzBkuUgAh"
-                            },
-                            "artists" : [
-                                {
-                                    "external_urls" : {
-                                        "spotify" : "https://open.spotify.com/artist/6T5tfhQCknKG4UnH90qGnz"
-                                    },
-                                    "href" : "https://api.spotify.com/v1/artists/6T5tfhQCknKG4UnH90qGnz",
-                                    "id" : "6T5tfhQCknKG4UnH90qGnz",
-                                    "name" : "DNCE",
-                                    "type" : "artist",
-                                    "uri" : "spotify:artist/6T5tfhQCknKG4UnH90qGnz"
-                                }
-                            ],
-                            "disc_number" : 1,
-                            "duration_ms" : 231813,
-                            "explicit" : false,
-                            "external_ids" : {
-                                "isrc" : "USUM71516725"
-                            },
-                            "external_urls" : {
-                                "spotify" : "https://open.spotify.com/track/7ciLq0Cip0yxiz6KANrOUq"
-                            },
-                            "href" : "https://api.spotify.com/v1/tracks/7ciLq0Cip0yxiz6KANrOUq",
-                            "id" : "7ciLq0Cip0yxiz6KANrOUq",
-                            "is_local" : false,
-                            "is_playable" : true,
-                            "name" : "Toothbrush",
-                            "popularity" : 64,
-                            "preview_url" : null,
-                            "track_number" : 5,
-                            "type" : "track",
-                            "uri" : "spotify:track/7ciLq0Cip0yxiz6KANrOUq"
-                        },
-                        {
-                            "album" : {
-                                "album_type" : "ALBUM",
-                                "artists" : [
-                                    {
-                                        "external_urls" : {
-                                            "spotify" : "https://open.spotify.com/artist/7n2wHs1TKAczGzO7Dd2rGr"
-                                        },
-                                        "href" : "https://api.spotify.com/v1/artists/7n2wHs1TKAczGzO7Dd2rGr",
-                                        "id" : "7n2wHs1TKAczGzO7Dd2rGr",
-                                        "name" : "Shawn Mendes",
-                                        "type" : "artist",
-                                        "uri" : "spotify:artist:7n2wHs1TKAczGzO7Dd2rGr"
-                                    }
-                                ],
-                                "external_urls" : {
-                                    "spotify" : "https://open.spotify.com/album/6sUOosXuYt0oUeczJRbedZ"
-                                },
-                                "href" : "https://api.spotify.com/v1/albums/6sUOosXuYt0oUeczJRbedZ",
-                                "id" : "6sUOosXuYt0oUeczJRbedZ",
-                                "images" : [
-                                    {
-                                        "height" : 640,
-                                        "url" : "https://i.scdn.co/image/ab67616d0000b273d26246b23c8bfa8ce543b3bb",
-                                        "width" : 640
-                                    },
-                                    {
-                                        "height" : 300,
-                                        "url" : "https://i.scdn.co/image/ab67616d00001e02d26246b23c8bfa8ce543b3bb",
-                                        "width" : 300
-                                    },
-                                    {
-                                        "height" : 64,
-                                        "url" : "https://i.scdn.co/image/ab67616d00004851d26246b23c8bfa8ce543b3bb",
-                                        "width" : 64
-                                    }
-                                ],
-                                "is_playable" : true,
-                                "name" : "Handwritten",
-                                "release_date" : "2015-04-14",
-                                "release_date_precision" : "day",
-                                "total_tracks" : 13,
-                                "type" : "album",
-                                "uri" : "spotify:album/6sUOosXuYt0oUeczJRbedZ"
-                            },
-                            "artists" : [
-                                {
-                                    "external_urls" : {
-                                        "spotify" : "https://open.spotify.com/artist/7n2wHs1TKAczGzO7Dd2rGr"
-                                    },
-                                    "href" : "https://api.spotify.com/v1/artists/7n2wHs1TKAczGzO7Dd2rGr",
-                                    "id" : "7n2wHs1TKAczGzO7Dd2rGr",
-                                    "name" : "Shawn Mendes",
-                                    "type" : "artist",
-                                    "uri" : "spotify:artist:7n2wHs1TKAczGzO7Dd2rGr"
-                                },
-                                {
-                                    "external_urls" : {
-                                        "spotify" : "https://open.spotify.com/artist/4nDoRrQiYLoBzwC5BhVJzF"
-                                    },
-                                    "href" : "https://api.spotify.com/v1/artists/4nDoRrQiYLoBzwC5BhVJzF",
-                                    "id" : "4nDoRrQiYLoBzwC5BhVJzF",
-                                    "name" : "Camila Cabello",
-                                    "type" : "artist",
-                                    "uri" : "spotify:artist/4nDoRrQiYLoBzwC5BhVJzF"
-                                }
-                            ],
-                            "disc_number" : 1,
-                            "duration_ms" : 223853,
-                            "explicit" : false,
-                            "external_ids" : {
-                                "isrc" : "USUM71516597"
-                            },
-                            "external_urls" : {
-                                "spotify" : "https://open.spotify.com/track/2GyA33q5rti5IxkMQemRDH"
-                            },
-                            "href" : "https://api.spotify.com/v1/tracks/2GyA33q5rti5IxkMQemRDH",
-                            "id" : "2GyA33q5rti5IxkMQemRDH",
-                            "is_local" : false,
-                            "is_playable" : true,
-                            "name" : "I Know What You Did Last Summer",
-                            "popularity" : 71,
-                            "preview_url" : null,
-                            "track_number" : 13,
-                            "type" : "track",
-                            "uri" : "spotify:track/2GyA33q5rti5IxkMQemRDH"
-                        }
-                    ],
-                    "seeds" : [
-                        {
-                            "initialPoolSize" : 1298,
-                            "afterFilteringSize" : 430,
-                            "afterRelinkingSize" : 430,
-                            "id" : "pop",
-                            "type" : "GENRE",
-                            "href" : null
-                        }
-                    ]
-                } */
 
         const data = await result.json();
         return data.tracks;
@@ -390,12 +47,9 @@ const APIController = (function() {
 
     const _favRecommendations = async (token, market, artistId, genre, tempo) => {
 
-
-        //UICtrl.resetRecommendations(); // Clear previous recommendations
-
-        const result = await fetch(`https://api.spotify.com/v1/recommendations?limit=4&market=${market}&seed_artist=${artistId}&seed_genres=${genre}&min_tempo=${tempo-20}&max_tempo=${tempo}`, {
+        const result = await fetch(`https://api.spotify.com/v1/recommendations?limit=4&market=${market}&seed_artist=${artistId}&seed_genres=${genre}&min_tempo=${tempo - 20}&max_tempo=${tempo}`, {
             method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + token }
+            headers: {'Authorization': 'Bearer ' + token}
         })
 
         const data = await result.json();
@@ -406,7 +60,7 @@ const APIController = (function() {
     const _getTrack = async (token, trackEndPoint) => {
         const result = await fetch(`${trackEndPoint}`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + token}
+            headers: {'Authorization': 'Bearer ' + token}
         });
 
         const data = await result.json();
@@ -416,7 +70,7 @@ const APIController = (function() {
     const _searchTracks = async (token, query) => {
         const result = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track`, {
             method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + token }
+            headers: {'Authorization': 'Bearer ' + token}
         });
 
         const data = await result.json();
@@ -426,7 +80,7 @@ const APIController = (function() {
     const _getAudioFeaturesForTrack = async (token, trackId) => {
         const result = await fetch(`https://api.spotify.com/v1/audio-features/${trackId}`, {
             method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + token }
+            headers: {'Authorization': 'Bearer ' + token}
         });
 
         const data = await result.json();
@@ -458,7 +112,7 @@ const APIController = (function() {
     }
 })();
 
-const UIController = (function() {
+const UIController = (function () {
 
     const DOMElements = {
         selectGenreOption: '#genre-options',
@@ -508,7 +162,7 @@ const UIController = (function() {
 
 })();
 
-const APPController = (function(UICtrl, APICtrl) {
+const APPController = (function (UICtrl, APICtrl) {
 
     const DOMInputs = UICtrl.inputField();
 
@@ -522,7 +176,7 @@ const APPController = (function(UICtrl, APICtrl) {
     const loadRecommendations = async (genre) => {
         const token = await APICtrl.getToken();
         UICtrl.storeToken(token);
-        UICtrl.resetRecommendations(); // Clear previous recommendations
+        UICtrl.resetRecommendations(); //clear the previous recommendations
         const recommendations = await APICtrl.getRecommendations(token, genre);
         recommendations.forEach(el => UICtrl.createRecommendationsDetail(el.album.images[1].url, el.name, el.artists[0].name, el.id));
         addEventListenersToSongCards();
@@ -568,7 +222,6 @@ const APPController = (function(UICtrl, APICtrl) {
     };
 
 
-
     const populateReviewTab = async (track) => {
         const token = UICtrl.getStoredToken().token;
         const audioTrackFeatures = await APICtrl.getAudioFeaturesForTrack(token, track.id);
@@ -610,25 +263,24 @@ const APPController = (function(UICtrl, APICtrl) {
             stars.appendChild(star);
         }
 
-        // Get all rating emoji groups
+        //Get all rating emoji groups
         const ratingEmojiGroups = document.querySelectorAll(
             '.rating-emojis, .frequency-emojis, .mood-emojis, .skip-emojis'
         );
 
-        // Function to handle emoji clicks
+        //Function to handle emoji clicks
         function handleEmojiClick(event) {
             const clickedEmoji = event.target;
             const emojiGroup = clickedEmoji.parentElement;
             const ratingType = emojiGroup.classList[0];
-            //const trackId = document.querySelector('#trackId').value;
 
-            // Special handling for mood emojis: only one can be selected
+            //handling for mood emojis: only one can be selected
             if (ratingType === 'mood-emojis') {
                 emojiGroup.querySelectorAll('.material-symbols-outlined').forEach(emoji => {
                     emoji.classList.remove('selected');
                 });
                 clickedEmoji.classList.add('selected');
-            } else { // For other rating types, follow the usual logic
+            } else { //For other rating types, follow the usual logic
                 const clickedIndex = Array.from(emojiGroup.children).indexOf(clickedEmoji);
                 emojiGroup.querySelectorAll('.material-symbols-outlined').forEach((emoji, index) => {
                     if (index <= clickedIndex) {
@@ -639,39 +291,12 @@ const APPController = (function(UICtrl, APICtrl) {
                 });
             }
 
-
-
-            // Find the index of the clicked emoji
-            //const clickedIndex = Array.from(emojiGroup.children).indexOf(clickedEmoji);
-
-            // Update emoji selections
-            /*
-            emojiGroup.querySelectorAll('.material-symbols-outlined').forEach((emoji, index) => {
-              if (index <= clickedIndex) {
-                emoji.classList.add('selected');
-              } else {
-                emoji.classList.remove('selected');
-              }
-            });
-            */
-
         }
 
 
-        // Add event listeners to each emoji group
+        //add event listeners to each emoji group
         ratingEmojiGroups.forEach(group => {
             group.addEventListener('click', handleEmojiClick);
-
-            // Load previously selected ratings from local storage (if any)
-            //const ratingType = group.classList[0];
-            //const trackId = document.querySelector('#trackId').value;
-            //const storedRating = localStorage.getItem(`${trackId}-${ratingType}`);
-
-            /* if (storedRating) {
-              for (let i = 0; i < storedRating; i++) {
-                emojis[i].classList.add('selected');
-              }
-            } */
 
             const emojis = group.querySelectorAll('.material-symbols-outlined');
         });
@@ -684,7 +309,7 @@ const APPController = (function(UICtrl, APICtrl) {
         document.getElementById('review').style.display = 'block';
     }
 
-    //Add new favourite from the track detail seciton
+    //Add new favourite from the track detail section
     favButton.addEventListener('click', async () => {
 
         const token = await APICtrl.getToken();
@@ -697,14 +322,12 @@ const APPController = (function(UICtrl, APICtrl) {
         const artistName = document.getElementById('song-artist').innerText;
         const songArtwork = document.getElementById('song-artwork').src;
         const danceability = document.getElementById('danceability').innerText;
-        const timeSignature =  document.getElementById('time-signature').innerText;
-        const tempo =  document.getElementById('tempo').innerText;
+        const timeSignature = document.getElementById('time-signature').innerText;
+        const tempo = document.getElementById('tempo').innerText;
         const energy = document.getElementById('energy').innerText;
         const key = document.getElementById('key').innerText;
-        //const popularity = track.popularity;
 
         const favRecommendationsList = await APICtrl.favRecommendations(token, market, artistId, genre, tempo);
-
 
         const favPlaylist = {
             playlistId: crypto.randomUUID(),
@@ -713,7 +336,7 @@ const APPController = (function(UICtrl, APICtrl) {
             playlistArtistName: artistName,
             playlistTrackId: trackId,
             playlistTrackName: trackName,
-            playlistTrackArtwork:songArtwork,
+            playlistTrackArtwork: songArtwork,
             playlistGenre: genre,
             playlistDate: new Date().toLocaleDateString(),
             playlistCollection: favRecommendationsList
@@ -721,12 +344,7 @@ const APPController = (function(UICtrl, APICtrl) {
 
         saveFavPlaylist(favPlaylist);
 
-        //recommendationsList.forEach(el => UICtrl.createRecommendationsDetail(el.album.images[1].url, el.name, el.artists[0].name, el.id));
-
-
     });
-
-
 
 
     /********* Playlist **********/
@@ -754,10 +372,6 @@ const APPController = (function(UICtrl, APICtrl) {
     }
 
 
-
-
-
-
 })(UIController, APIController);
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -766,7 +380,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const navLinks = document.querySelectorAll('.nav-link');
     const mainContents = document.querySelectorAll('.main-content');
-    //const reviewTab = document.getElementById('review');
     const reviewInput = document.getElementById('reviewInput');
     const uploadButton = document.getElementById('uploadButton');
     const playlistsContainer = document.getElementById('playlists');
@@ -776,12 +389,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const reviewedSongsChip = document.querySelector('#reviewed-songs-chip');
     const playlistsSection = document.querySelector('#playlists-section');
     const reviewedSongsSection = document.querySelector('#reviewed-songs-section');
-
     const queryInput = document.getElementById('searchInput');
     const autocompleteResultsDiv = document.getElementById('autocomplete-results');
-    //const searchResultsDiv = document.getElementById('search-results');
-    //const recommendationsDiv = document.getElementById('recommendations');
-    //const form = document.querySelector('form');
 
     document.querySelector('#home').style.display = 'block';
 
@@ -796,19 +405,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-
     playlistsChip.addEventListener('click', () => {
         playlistsSection.style.display = 'block';
         reviewedSongsSection.style.display = 'none';
         loadPlaylists()
-
     });
 
     function loadPlaylists() {
         let playlists = JSON.parse(localStorage.getItem('favPlaylists')) || [];
-        //playlistsContainer.innerHTML = '';
 
-        //const filteredReviews = reviews.filter(review => review.trackId === trackId);
         const filteredPlaylists = playlists
 
         filteredPlaylists.forEach(playlist => {
@@ -842,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function replacePlaylist(playlist) {
         const playlistElement = document.querySelector(`.playlist-${playlist.playlistId}`);
 
-        // Check if the playlist element exists
+        //check to see if the playlist element exists
         if (playlistElement) {
             playlistContainer(playlist);
         } else {
@@ -864,15 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('review-details').style.display = 'none';
         document.getElementById('playlist-details').style.display = 'block';
 
-        /*
-        // Add a delete button here
-          const deletePlaylistButton = document.createElement('button');
-          deletePlaylistButton.textContent = 'Delete Playlist';
-          deletePlaylistButton.classList.add('delete-button');
-          document.querySelector('.playlist-details').prepend(deletePlaylistButton);*/
-
-        // Delete button event listener here
-
+        //delete button event listener here
         let deletePlaylistButton = document.querySelector('.delete-button');
         if (!deletePlaylistButton) {
             deletePlaylistButton = document.createElement('button');
@@ -909,28 +506,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         APPController.addEventListenersToSongCards();
 
-
-        /*
-                const existingDeleteButton = document.querySelector('.delete-button');
-                  if (existingDeleteButton) {
-                    existingDeleteButton.remove();
-                  }
-
-                  // Add a delete button here
-                  const deleteButton = document.createElement('button');
-                  deleteButton.textContent = 'Delete Review';
-                  deleteButton.classList.add('delete-button');
-                  document.querySelector('.review-details').appendChild(deleteButton);
-
-                  // Delete button event listener here
-                  deleteButton.addEventListener('click', () => {
-                    deleteReview(review.id);
-                    // UI updates here
-                    document.getElementById('review-details').style.display = 'none'; // Hide review details
-                    document.getElementById('home').style.display = 'block'; // Show home page
-                  });
-                  */
-
     }
 
     function getRatingIcons(rating, maxRating = 5) {
@@ -948,23 +523,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadReviewedSongs();
     });
 
-
-
-
-
-    /* maybe delete later
-
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const query = queryInput.value.trim();
-            if (query) {
-                const token = await APIController.getToken();
-                const tracks = await APIController.searchTracks(token, query);
-                displaySearchResults(tracks, token);
-            }
-        });
-    */
-
     //this is used for the Search page and the auto complete results
     queryInput.addEventListener('input', async () => {
         const query = queryInput.value.trim();
@@ -976,34 +534,6 @@ document.addEventListener('DOMContentLoaded', () => {
             autocompleteResultsDiv.innerHTML = '';
         }
     });
-
-
-    /*maybe delete later
-        function displaySearchResults(tracks, token) {
-            searchResultsDiv.innerHTML = '';
-            if (tracks.length > 0) {
-                tracks.forEach(track => {
-                    const html = `
-                        <div class="card song-card" data-track-id="${track.id}">
-                            <img src="${track.album.images[1].url}" class="card-img" alt="${track.name} album cover"/>
-                            <p class="card-name">${track.name}</p>
-                            <p class="card-description">By ${track.artists[0].name}</p>
-                        </div>
-                    `;
-                    searchResultsDiv.insertAdjacentHTML('beforeend', html);
-
-                    const songCard = searchResultsDiv.lastElementChild;
-                    songCard.addEventListener('click', async () => {
-                        const trackDetails = await APIController.getTrack(token, `https://api.spotify.com/v1/tracks/${track.id}`);
-                        APPController.populateReviewTab(trackDetails);
-                        APPController.showReviewTab();
-                    });
-                });
-            } else {
-                searchResultsDiv.innerHTML = '<p>No tracks found</p>';
-            }
-        }
-        */
 
     function displayAutocompleteResults(tracks, token) {
         autocompleteResultsDiv.innerHTML = '';
@@ -1030,18 +560,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /* maybe delete this later
-    function getSelectedRating(selector) {
-        const icons = document.querySelectorAll(selector);
-        return Array.from(icons).filter(icon => icon.classList.contains('selected')).length;
-    }
-    */
-
-
-
-
-
-
     //*********REVIEW SECTION*********//
 
     //Add new feedback from the track detail seciton
@@ -1061,7 +579,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 reviewerName: 'Anonymous',
                 rating: Array.from(ratingEmojis).filter(icon => icon.classList.contains('selected')).length,
                 frequency: Array.from(frequencyEmojis).filter(icon => icon.classList.contains('selected')).length,
-                mood: Array.from(moodEmojis).findIndex(icon => icon.classList.contains('selected'))+1,
+                mood: Array.from(moodEmojis).findIndex(icon => icon.classList.contains('selected')) + 1,
                 skipRate: Array.from(skipEmojis).filter(icon => icon.classList.contains('selected')).length,
                 reviewText,
                 songTitle: document.getElementById('song-title').innerText,
@@ -1072,7 +590,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             saveReview(review); // Save to local storage (existing function)
             loadReviews(trackId); // Load updated reviews (existing function)
-            //loadReviewedSongs(); // Load updated reviewed songs (existing function)
             resetIcons();
             reviewInput.value = '';
         }
@@ -1083,11 +600,6 @@ document.addEventListener('DOMContentLoaded', () => {
         reviews.push(review);
         localStorage.setItem('reviews', JSON.stringify(reviews));
     }
-
-
-
-
-
 
     function loadReviewedSongs() {
         let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
@@ -1120,8 +632,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //This is the individual review page
     function renderReviewDetails(review) {
-
-        //console.log(review);
 
         document.getElementById('home').style.display = 'none';
         document.getElementById('search').style.display = 'none';
@@ -1165,7 +675,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
 function loadReviews(trackId) {
     let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
     document.getElementById('reviews').innerHTML = '';
@@ -1177,11 +686,10 @@ function loadReviews(trackId) {
 };
 
 function appendReview(review) {
-    // Check if a review with the same song title already exists
-    //const existingReview = document.querySelector(`.review-${review.songTitle.replace(/\s+/g, '-')}`);
+    //Check if a review with the same song title already exists
     const existingReview = document.querySelector(`.review-${review.id}`);
     if (existingReview) {
-        // Update the existing review
+        //Update the existing review
         const filledStars = '★'.repeat(review.rating);
         const emptyStars = '☆'.repeat(5 - review.rating);
 
@@ -1193,7 +701,7 @@ function appendReview(review) {
             <p>${review.reviewText}</p>
         `;
     } else {
-        // Create a new review element (if it doesn't already exist)
+        //Create a new review element (if it doesn't already exist)
         const reviewElement = document.createElement('div');
         reviewElement.classList.add('review');
         reviewElement.classList.add(`review-${review.id}`);
@@ -1224,8 +732,6 @@ function deletePlaylist(playlistId) {
     localStorage.setItem('favPlaylists', JSON.stringify(favplaylistsFiltered));
 }
 
-
-
 function resetIcons() {
     document.querySelectorAll('.material-symbols-outlined').forEach((icon) => {
         icon.classList.remove('selected');
@@ -1249,11 +755,11 @@ function getMoodIcons(mood) {
         'sentiment_very_satisfied'
     ];
     if (mood < 1 || mood > moodIcons.length) {
-        mood = 3; // Default to neutral if out of range
+        mood = 3; //Default to no mood if out of range
     }
     let icons = '';
     for (let i = 0; i < moodIcons.length; i++) {
-        icons += `<span class=${i == mood -1 ? "'material-symbols-outlined selected'" : "'material-symbols-outlined'" }>${moodIcons[i]}</span>`;
+        icons += `<span class=${i == mood - 1 ? "'material-symbols-outlined selected'" : "'material-symbols-outlined'"}>${moodIcons[i]}</span>`;
     }
     return icons;
 }
