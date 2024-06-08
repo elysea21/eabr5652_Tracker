@@ -36,7 +36,7 @@ const APIController = (function () {
 
         const lowerCaseSeedGenres = seed_genres.toLowerCase();
 
-        const result = await fetch(`https://api.spotify.com/v1/recommendations?limit=4&market=${market}&seed_artist=${seed_artists}&seed_genres=${lowerCaseSeedGenres}&min_tempo=${min_tempo}&max_tempo=${max_tempo}`, {
+        const result = await fetch(`https://api.spotify.com/v1/recommendations?market=${market}&seed_artist=${seed_artists}&seed_genres=${lowerCaseSeedGenres}&min_tempo=${min_tempo}&max_tempo=${max_tempo}`, {
             method: 'GET',
             headers: {'Authorization': 'Bearer ' + token}
         });
@@ -47,7 +47,7 @@ const APIController = (function () {
 
     const _favRecommendations = async (token, market, artistId, genre, tempo) => {
 
-        const result = await fetch(`https://api.spotify.com/v1/recommendations?limit=4&market=${market}&seed_artist=${artistId}&seed_genres=${genre}&min_tempo=${tempo - 20}&max_tempo=${tempo}`, {
+        const result = await fetch(`https://api.spotify.com/v1/recommendations?market=${market}&seed_artist=${artistId}&seed_genres=${genre}&min_tempo=${tempo - 20}&max_tempo=${tempo}`, {
             method: 'GET',
             headers: {'Authorization': 'Bearer ' + token}
         })
