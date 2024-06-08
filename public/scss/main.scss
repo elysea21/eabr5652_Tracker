@@ -11,26 +11,13 @@
 
 .main-content {
   display: none;
-}
-
-.main-content {
   flex: 0.8;
   overflow-y: auto;
   background-color: var(--grey);
-  display: flex;
   flex-direction: column;
   padding: 1rem;
   border-radius: 0.5rem;
   padding-bottom: 6rem;
   box-sizing: border-box;
-}
-
-.main-content {
-  flex: 1;
-  padding: 2rem;
-  background-color: var(--grey);
-  border-radius: 0.5rem;
-  display: flex;
-  flex-direction: column;
   align-items: center;
 }
