@@ -1,4 +1,3 @@
-/* General Styles */
 #home {
   display: block;
 }
@@ -38,11 +37,11 @@
   font-weight: 600;
   font-size: 0.8rem;
   cursor: pointer;
-  transition: all 0.3s;
 }
 
 .link-flex:hover {
   opacity: 1;
+  transition: all 0.3s;
 }
 
 .link-flex img {
@@ -51,6 +50,7 @@
 }
 
 .link-flex p {
+  /*font-size: 1rem;*/
   color: var(--white);
 }
 
@@ -59,7 +59,9 @@
   flex: 3;
   overflow-y: auto;
   background-color: var(--grey);
+  /*padding: 0.5rem 1.5rem; */
 }
+
 
 .flex-top {
   display: flex;
@@ -73,17 +75,21 @@
   width: 1rem;
   opacity: 0.8;
   margin-top: 0.5rem;
-  transition: all 0.3s;
 }
 
 .flex-top p {
   font-size: 0.8rem;
   opacity: 0.8;
+}
+
+.flex-top p:hover {
+  opacity: 1;
   transition: all 0.3s;
 }
 
-.flex-top p:hover, .flex-top img:hover {
+.flex-top img:hover {
   opacity: 1;
+  transition: all 0.3s;
 }
 
 .chip {
@@ -102,6 +108,7 @@
   .sidebar {
     flex: 0.3;
   }
+
   .main-content {
     flex: 0.7;
   }
@@ -111,100 +118,21 @@
   .sidebar {
     flex: 0.4;
   }
+
   .main-content {
     flex: 0.6;
-    padding: 1rem;
   }
+
   .link-flex p {
     font-size: 0.9rem;
   }
+
   .top-icons {
     padding: 1rem;
   }
+
   .library {
     padding: 0.5rem 1rem;
-  }
-  .header {
-    flex-direction: column;
-    align-items: center;
-  }
-  .heading {
-    font-size: 1.6rem;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  .genre-dropdown {
-    max-width: 250px;
-  }
-  .genre-dropdown select {
-    font-size: 0.9rem;
-  }
-  .scroll-container {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  }
-  .playlist-card, .reviewed-song-card {
-    padding: 8px;
-  }
-  .playlist-song-img, .reviewed-song-img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-  }
-  .playlist-song-title, .reviewed-song-title {
-    font-size: 0.8em;
-  }
-  .playlist-song-artist, .reviewed-song-artist {
-    font-size: 0.7em;
-  }
-  .song-details h2 {
-    font-size: 1.6rem;
-  }
-  .song-details h3 {
-    font-size: 1.2rem;
-  }
-  .song-info {
-    padding: 0 1rem;
-  }
-  .song-info-left p, .song-info-right p {
-    font-size: 0.9rem;
-  }
-  .song-artwork img {
-    width: 90%;
-  }
-  .stars .material-symbols-outlined {
-    font-size: 1.5rem;
-  }
-  .material-symbols-outlined {
-    font-size: 0.9rem;
-  }
-  .rating-emojis .material-symbols-outlined,
-  .frequency-emojis .material-symbols-outlined,
-  .mood-emojis .material-symbols-outlined,
-  .skip-emojis .material-symbols-outlined {
-    font-size: 0.9em;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-  }
-  .review-section {
-    max-width: 100%;
-    padding: 0 1rem;
-  }
-  .review-section input[type="text"] {
-    width: 95%;
-  }
-  .review-section button {
-    width: 95%;
-    font-size: 0.9rem;
-    padding: 0.8rem 1.5rem;
-  }
-  .review {
-    padding: 0.8rem;
-  }
-  .review h4 {
-    font-size: 1rem;
-  }
-  .review p {
-    font-size: 0.9rem;
   }
 }
 
@@ -216,75 +144,40 @@
     height: auto;
     overflow-y: visible;
   }
+
   .main-content {
     flex: 1;
     width: 100%;
     padding: 1rem 0.5rem;
   }
+
   .link-flex {
     justify-content: center;
   }
+
   .top-icons {
     padding: 0.5rem;
   }
+
   .library {
     padding: 0.5rem;
   }
+
   .chip {
     padding: 0.3rem 0.5rem;
   }
+
   .link-flex a, .link-flex p {
     display: none;
   }
+
   .link-flex .material-icons {
     font-size: 1.2rem;
   }
-  .song-details h2 {
-    font-size: 1.4rem;
-  }
-  .song-details h3 {
-    font-size: 1rem;
-  }
-  .song-info-left p, .song-info-right p {
-    font-size: 0.8rem;
-  }
-  .song-artwork img {
-    width: 100%;
-  }
-  .stars .material-symbols-outlined {
-    font-size: 1.2rem;
-  }
-  .material-symbols-outlined {
-    font-size: 0.8rem;
-  }
-  .rating-emojis .material-symbols-outlined,
-  .frequency-emojis .material-symbols-outlined,
-  .mood-emojis .material-symbols-outlined,
-  .skip-emojis .material-symbols-outlined {
-    font-size: 0.7em;
-  }
-  .song-review .song-info-left p, .song-review .song-info-right p {
-    font-size: 0.8rem;
-  }
-  .review-section input[type="text"] {
-    font-size: 0.8rem;
-  }
-  .review-section button {
-    font-size: 0.8rem;
-    padding: 0.7rem 1.2rem;
-  }
-  .review {
-    padding: 0.6rem;
-  }
-  .review h4 {
-    font-size: 0.9rem;
-  }
-  .review p {
-    font-size: 0.8rem;
-  }
 }
 
-/* Search Container */
+
+/* Container for the search bar */
 .search-container {
   display: flex;
   justify-content: center;
@@ -293,16 +186,18 @@
   padding: 10px;
 }
 
+/* Input field styles */
 #searchInput {
   width: 100%;
   max-width: 100%;
   padding: 8px;
   border: none;
   border-radius: 5px;
-  font-size: 1.2em;
+  font-size: 1.2em; /* Responsive font size */
   box-sizing: border-box;
 }
 
+/* Responsive text size */
 @media (max-width: 600px) {
   #searchInput {
     font-size: 1em;
@@ -375,8 +270,8 @@
   border-radius: 0.5rem;
   padding: 8px;
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
   background-color: #121212;
   color: white;
   border: none;
@@ -399,11 +294,75 @@
   background-color: grey;
 }
 
+.material-symbols-outlined {
+  transition: transform 0.3s ease;
+}
+
 .chevron-down {
   transform: rotate(90deg);
 }
 
-/* Scroll Container */
+/* Media Queries for Responsive Design */
+
+@media (min-width: 992px) {
+  .heading {
+    font-size: 1.8rem;
+  }
+
+  .genre-dropdown select {
+    font-size: 1rem;
+  }
+
+  .scroll-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heading {
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .genre-dropdown {
+    max-width: 250px;
+  }
+
+  .genre-dropdown select {
+    font-size: 0.9rem;
+  }
+
+  .scroll-container {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .heading {
+    font-size: 1.4rem;
+  }
+
+  .genre-dropdown {
+    max-width: 200px;
+  }
+
+  .genre-dropdown select {
+    font-size: 0.7rem;
+  }
+
+  .scroll-container {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}
+
+
 .scroll-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -440,6 +399,7 @@
   font-size: 0.8rem;
   opacity: 0.5;
 }
+
 
 .song-details {
   text-align: center;
@@ -499,11 +459,36 @@
 }
 
 .stars .material-symbols-outlined {
+  color: gray;
   font-size: 2rem;
 }
 
 .stars .material-symbols-outlined.filled {
-  font-variation-settings: 'FILL' 1;
+  font-variation-settings: 'FILL' 1, /* Change to filled */
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  color: white;
+}
+
+.song-review .song-info-left p, .song-review .song-info-right p {
+  font-size: 1rem;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, /* Initially unfilled */
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  color: grey;
+  cursor: pointer;
+}
+
+.material-symbols-outlined.selected {
+  font-variation-settings: 'FILL' 1, /* Change to filled */
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
   color: white;
 }
 
@@ -577,24 +562,153 @@
 }
 
 .song-review {
-  display: flex;
+  display: flex; /* Enable flexbox for the song review section */
   flex-direction: column;
   align-items: center;
 }
 
-/* Review Details Page */
-#review-details-main {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 80%;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  color: #fff;
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+
+  .song-details h2 {
+    font-size: 1.6rem;
+  }
+
+  .song-details h3 {
+    font-size: 1.2rem;
+  }
+
+  .song-info {
+    padding: 0 1rem;
+  }
+
+  .song-info-left p, .song-info-right p {
+    font-size: 0.9rem;
+  }
+
+  .song-artwork img {
+    width: 90%; /* Make the image slightly smaller */
+  }
+
+  .stars .material-symbols-outlined {
+    font-size: 1.5rem;
+  }
+
+  .material-symbols-outlined {
+    font-size: 0.9rem; /* Smaller icons */
+  }
+
+
+  .rating-emojis .material-symbols-outlined,
+  .frequency-emojis .material-symbols-outlined,
+  .mood-emojis .material-symbols-outlined,
+  .skip-emojis .material-symbols-outlined {
+    font-size: 0.9em;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+  .review-section {
+    max-width: 100%; /* Center review box on smaller screens */
+    padding: 0 1rem; /* Reduce padding to prevent overflow */
+  }
+
+  .review-section input[type="text"] {
+    width: 95%; /* Allow input to shrink slightly for padding */
+  }
+
+  .review-section button {
+    width: 95%; /* Allow button to shrink slightly for padding */
+  }
+
+  .song-review .song-info-left p, .song-review .song-info-right p {
+    font-size: 0.9rem;
+  }
+
+  .review-section input[type="text"] {
+    font-size: 0.9rem;
+  }
+
+  .review-section button {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+  }
+  .review {
+    padding: 0.8rem;
+  }
+  .review h4 {
+    font-size: 1rem;
+  }
+  .review p {
+    font-size: 0.9rem;
+  }
 }
 
-#review-details-main img {
+
+/* Even smaller screen sizes */
+@media (max-width: 480px) {
+  .song-details h2 {
+    font-size: 1.4rem;
+  }
+
+  .song-details h3 {
+    font-size: 1rem;
+  }
+  .song-info-left p, .song-info-right p {
+    font-size: 0.8rem;
+  }
+  .song-artwork img {
+    width: 100%;
+  }
+  .stars .material-symbols-outlined {
+    font-size: 1.2rem;
+  }
+  .material-symbols-outlined {
+    font-size: 0.8rem;
+  }
+  .rating-emojis .material-symbols-outlined,
+  .frequency-emojis .material-symbols-outlined,
+  .mood-emojis .material-symbols-outlined,
+  .skip-emojis .material-symbols-outlined {
+    font-size: 0.7em;
+  }
+  .song-review .song-info-left p, .song-review .song-info-right p {
+    font-size: 0.8rem;
+  }
+
+  .review-section input[type="text"] {
+    font-size: 0.8rem;
+  }
+
+  .review-section button {
+    font-size: 0.8rem;
+    padding: 0.7rem 1.2rem; /* Further reduce padding */
+  }
+  .review {
+    padding: 0.6rem; /* Further reduce padding */
+  }
+  .review h4 {
+    font-size: 0.9rem;
+  }
+  .review p {
+    font-size: 0.8rem;
+  }
+}
+
+
+/* Review Details Page */
+#review-details {
+  display: flex;
+  flex-direction: row; /* Align elements side-by-side */
+  justify-content: space-between;
+  width: 80%; /* Limit width on larger screens */
+  align-items: center;
+  text-align: center; /* Center text for better readability */
+}
+
+/* Song Artwork */
+#review-details img {
   width: 40%;
   max-width: 300px;
   height: auto;
@@ -604,36 +718,41 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#review-details-main h1 {
+/* Song Title and Artist */
+#review-details h1 {
   font-size: 1.8em;
   margin: 0 0 10px 0;
 }
 
-#review-details-main h2 {
+#review-details h2 {
   font-size: 1.2em;
   margin: 0 0 20px 0;
   color: #787878;
 }
 
-#review-details-main p#reviewDate {
+/* Review Date */
+#review-details p#reviewDate {
   font-size: 0.9em;
   color: #aaa;
   margin-bottom: 20px;
 }
 
-#review-details-main p#reviewText {
+/* Review Text */
+#review-details p#reviewText {
   font-size: 1em;
   line-height: 1.5;
   margin-bottom: 30px;
   white-space: pre-wrap;
 }
 
+/* Additional Details Container */
 .additional-details-container {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
+/* Additional Details */
 .additional-details {
   display: flex;
   flex-direction: row;
@@ -655,6 +774,12 @@
   text-align: left;
 }
 
+.material-symbols-outlined {
+  font-size: 1.2em;
+  margin: 2px;
+}
+
+/* Delete Button */
 .delete-button {
   background-color: #c9302c;
   color: white;
@@ -663,37 +788,37 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
-  font-size: 0.8em;
 }
 
 .delete-button:hover {
   background-color: #770907;
 }
 
+/* Media Query for Smaller Screens - Updated */
 @media (max-width: 768px) {
-  #review-details-main {
+  #review-details {
     flex-direction: column;
     align-items: center;
     text-align: center;
     width: 90%;
   }
 
-  #review-details-main img {
+  #review-details img {
     width: 100%;
     margin-bottom: 10px;
   }
 
-  #review-details-main h1 {
+  #review-details h1 {
     font-size: 1.6em;
   }
 
-  #review-details-main h2 {
+  #review-details h2 {
     font-size: 1em;
     margin-bottom: 10px;
   }
 
-  #review-details-main p#reviewDate,
-  #review-details-main p#reviewText {
+  #review-details p#reviewDate,
+  #review-details p#reviewText {
     font-size: 0.9em;
   }
 
@@ -701,11 +826,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    width: 95%;
+    width: 95%; /* Take up full width on smaller screens */
   }
 
   .detail-item {
-    flex: 1 0 45%;
+    flex: 1 0 45%; /* Each item takes 45% width and wraps if needed */
     margin: 10px 5px;
   }
 
@@ -715,50 +840,9 @@
   }
 }
 
-@media (max-width: 480px) {
-  #review-details-main {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 90%;
-  }
 
-  #review-details-main img {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  #review-details-main h1 {
-    font-size: 1.4em;
-  }
-
-  #review-details-main h2 {
-    font-size: 1em;
-    margin-bottom: 10px;
-  }
-
-  #review-details-main p#reviewDate,
-  #review-details-main p#reviewText {
-    font-size: 0.9em;
-  }
-
-  .additional-details {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .detail-item p {
-    text-align: center;
-    font-size: 0.8em;
-  }
-
-  .material-symbols-outlined {
-    font-size: 1em;
-  }
-}
-
-/* Playlist and Reviewed Song Section */
-.playlist-card, .reviewed-song-card {
+/* Styles for Playlist Section */
+.playlist-card {
   display: flex;
   align-items: center;
   padding: 10px;
@@ -767,11 +851,11 @@
   transition: background-color 0.3s;
 }
 
-.playlist-card:hover, .reviewed-song-card:hover {
+.playlist-card:hover {
   background-color: #333;
 }
 
-.playlist-song-img, .reviewed-song-img {
+.playlist-song-img {
   width: 60px;
   height: 60px;
   object-fit: cover;
@@ -779,53 +863,274 @@
   margin-right: 15px;
 }
 
-.playlist-song-title, .reviewed-song-title {
+.playlist-song-title {
   font-size: 0.9em;
   color: #fff;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2; /* Limit text to 2 lines */
   -webkit-box-orient: vertical;
 }
 
 @media (max-width: 1480px) {
-  .playlist-card, .reviewed-song-card {
+
+  .playlist-card {
     padding: 8px;
   }
 
-  .playlist-song-img, .reviewed-song-img {
-    width: 40px;
+  .playlist-song-img {
+    width: 40px; /* Smaller image size */
     height: 40px;
-    margin-right: 10px;
+    margin-right: 10px; /* Reduced margin */
   }
 
-  .playlist-song-title, .reviewed-song-title {
+  .playlist-song-title {
     font-size: 1em;
   }
 
-  .playlist-song-artist, .reviewed-song-artist {
+  .playlist-song-artist {
     font-size: 0.9em;
   }
 }
 
 @media (max-width: 768px) {
-  .playlist-card, .reviewed-song-card {
+
+  .playlist-card {
     padding: 8px;
   }
 
-  .playlist-song-img, .reviewed-song-img {
+  .playlist-song-img {
     width: 40px;
     height: 40px;
     margin-right: 10px;
   }
 
-  .playlist-song-title, .reviewed-song-title {
+  .playlist-song-title {
     font-size: 0.8em;
   }
 
-  .playlist-song-artist, .reviewed-song-artist {
+  .playlist-song-artist {
     font-size: 0.7em;
+  }
+}
+
+
+/* Styles for Reviewed Song Section */
+.reviewed-song-card {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reviewed-song-card:hover {
+  background-color: #333;
+}
+
+.reviewed-song-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.reviewed-song-title {
+  font-size: 0.9em;
+  color: #fff;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+}
+
+@media (max-width: 1480px) {
+
+  .reviewed-song-card {
+    padding: 8px;
+  }
+
+  .reviewed-song-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  .reviewed-song-title {
+    font-size: 1em;
+  }
+
+  .reviewed-song-artist {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .reviewed-song-card {
+    padding: 8px;
+  }
+
+  .reviewed-song-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  .reviewed-song-title {
+    font-size: 0.8em;
+  }
+
+  .reviewed-song-artist {
+    font-size: 0.7em;
+  }
+}
+
+
+/* Review Details Page */
+#review-details {
+  display: flex;
+  flex-direction: row; /* Stack elements vertically */
+  align-items: center; /* Center horizontally on larger screens */
+  padding: 20px;
+  color: #fff;
+  text-align: center; /* Center text for better readability */
+}
+
+/* Song Artwork */
+#review-details img {
+  width: 80%;
+  max-width: 500px;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border-radius: 8px; /* Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+/* Song Title and Artist */
+#review-details h1 {
+  font-size: 1.8em;
+  margin: 0 0 10px 0;
+}
+
+#review-details h2 {
+  font-size: 1.2em;
+  margin: 0 0 20px 0;
+  color: #787878;
+}
+
+/* Review Date */
+#review-details p#reviewDate {
+  font-size: 0.9em;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+/* Review Text */
+#review-details p#reviewText {
+  font-size: 1em;
+  line-height: 1.5; /* Improve readability */
+  margin-bottom: 30px;
+  white-space: pre-wrap; /* Preserve line breaks in the review text */
+}
+
+/* Additional Details Container */
+.additional-details-container {
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Take full width to center content */
+}
+
+/* Additional Details */
+.additional-details {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 15px;
+}
+
+.detail-item p {
+  font-size: 1em;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.material-symbols-outlined {
+  font-size: 1.2em;
+  margin: 2px;
+}
+
+/* Delete Button */
+.delete-button {
+  background-color: #c9302c;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 0.8em;;
+}
+
+.delete-button:hover {
+  background-color: #770907;
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 768px) {
+  #review-details {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+  }
+
+  #review-details img {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #review-details h1 {
+    font-size: 1.2em;
+  }
+
+  #review-details h2 {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+
+  #review-details p#reviewDate,
+  #review-details p#reviewText {
+    font-size: 0.9em;
+  }
+
+  .additional-details {
+    flex-direction: column; /* Stack labels and icons vertically */
+    width: 100%; /* Take up full width on smaller screens */
+  }
+
+  .detail-item p {
+    text-align: center;
+    font-size: 0.8em; /* Smaller labels */
+  }
+
+  .material-symbols-outlined {
+    font-size: 1em; /* Smaller icons */
   }
 }
