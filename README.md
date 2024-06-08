@@ -1,3 +1,6 @@
+**Github Repository**
+https://github.com/elysea21/eabr5652_Tracker
+
 **Project Overview:**
 It's designed to simplify the process of tracking and refining users' individual musical tastes. The app enables users to explore their musical preferences in depth by reviewing songs and recording specific data like tempo and key for their favourite tracks in a personalised library. By analysing this data, the app can recommend similar tracks, creating seamlessly curated playlists tailored to user-specific data.
 
