@@ -1,9 +1,9 @@
 import {clientId} from "../config";
 import {clientSecret} from "../config";
 
+//API Interface module for each Spotify endpoint
 const APIController = (function () {
 
-    // private methods
     const _getToken = async () => {
         const result = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
@@ -112,6 +112,7 @@ const APIController = (function () {
     }
 })();
 
+//UI module that contains the code to set up the single page web app
 const UIController = (function () {
 
     const DOMElements = {
@@ -162,6 +163,7 @@ const UIController = (function () {
 
 })();
 
+//Application module that controls the application flow and functionality
 const APPController = (function (UICtrl, APICtrl) {
 
     const DOMInputs = UICtrl.inputField();
@@ -192,7 +194,7 @@ const APPController = (function (UICtrl, APICtrl) {
         addEventListenersToSongCards();
     }
 
-
+    //Allow the user to click on a specific song card to view additional detail and actions
     const addEventListenersToSongCards = () => {
         const songCards = document.querySelectorAll('.song-card');
         songCards.forEach(card => {
@@ -206,6 +208,7 @@ const APPController = (function (UICtrl, APICtrl) {
         });
     }
 
+    //Mapping to convert the Spotify reference number into the actual music key
     const keyMapping = {
         0: "C",
         1: "C#/D♭",
@@ -221,7 +224,7 @@ const APPController = (function (UICtrl, APICtrl) {
         11: "B"
     };
 
-
+    //Get all of the data for the detail view and actions on a specific song
     const populateReviewTab = async (track) => {
         const token = UICtrl.getStoredToken().token;
         const audioTrackFeatures = await APICtrl.getAudioFeaturesForTrack(token, track.id);
@@ -238,8 +241,8 @@ const APPController = (function (UICtrl, APICtrl) {
         document.getElementById('tempo').innerText = Math.round(audioTrackFeatures.tempo);
         document.getElementById('energy').innerText = Math.round(audioTrackFeatures.energy * 100);
 
+        //Get and load any associated reviews for this song
         loadReviews(track.id);
-
 
         const key = audioTrackFeatures.key;
         const keyNotation = keyMapping[key] !== undefined ? keyMapping[key] : "Unknown Key";
@@ -303,6 +306,7 @@ const APPController = (function (UICtrl, APICtrl) {
 
     }
 
+    //Unhide and display the review tab
     const showReviewTab = () => {
         const mainContents = document.querySelectorAll('.main-content');
         mainContents.forEach(content => content.style.display = 'none');
@@ -348,6 +352,7 @@ const APPController = (function (UICtrl, APICtrl) {
 
 
     /********* Playlist **********/
+    //Save the playlist recommendations to localstorage
     function saveFavPlaylist(favPlaylist) {
         let favPlaylists = JSON.parse(localStorage.getItem('favPlaylists')) || [];
         favPlaylists.push(favPlaylist);
@@ -370,7 +375,6 @@ const APPController = (function (UICtrl, APICtrl) {
         addEventListenersToSongCards
 
     }
-
 
 })(UIController, APIController);
 
@@ -404,7 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
-
     playlistsChip.addEventListener('click', () => {
         playlistsSection.style.display = 'block';
         reviewedSongsSection.style.display = 'none';
@@ -421,6 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    //Create the list view for the playlist screen
     function playlistContainer(playlist) {
         const playlistElement = document.createElement('div');
         playlistElement.classList.add('playlist');
@@ -437,6 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
+        //Allow the user to click a specific song card to see additional details and actions for that song
         playlistElement.addEventListener('click', () => {
             renderPlaylistDetails(playlist);
         });
@@ -444,6 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    //Remove a playlist that the user added from the localstorage
     function replacePlaylist(playlist) {
         const playlistElement = document.querySelector(`.playlist-${playlist.playlistId}`);
 
@@ -535,6 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    //Search as the user types to show what songs are available
     function displayAutocompleteResults(tracks, token) {
         autocompleteResultsDiv.innerHTML = '';
         if (tracks.length > 0) {
@@ -595,12 +602,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    //Save the users review to localstorage
     function saveReview(review) {
         let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
         reviews.push(review);
         localStorage.setItem('reviews', JSON.stringify(reviews));
     }
 
+    //Get the reviews from localstorage to display them to the user
     function loadReviewedSongs() {
         let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
         reviewedSongsContainer.innerHTML = '';
@@ -612,6 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    //display a list of reviews for teh user to select and see additional details
     function appendReviewedSong(review) {
         const reviewedSongElement = document.createElement('div');
         reviewedSongElement.classList.add('reviewed-song');
@@ -674,7 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-
+//get a review for a specific song
 function loadReviews(trackId) {
     let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
     document.getElementById('reviews').innerHTML = '';
@@ -683,8 +693,9 @@ function loadReviews(trackId) {
     filteredReviews.forEach(review => {
         appendReview(review);
     });
-};
+}
 
+//Get the specific review data for the Song detail page
 function appendReview(review) {
     //Check if a review with the same song title already exists
     const existingReview = document.querySelector(`.review-${review.id}`);
@@ -720,12 +731,14 @@ function appendReview(review) {
     }
 }
 
+//Remove a specific review from localstorage
 function deleteReview(reviewId) {
     let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
     reviews = reviews.filter(review => review.id !== reviewId);
     localStorage.setItem('reviews', JSON.stringify(reviews));
 }
 
+//Remove a specific playlist from localstorage
 function deletePlaylist(playlistId) {
     let favPlaylists = JSON.parse(localStorage.getItem('favPlaylists')) || [];
     let favplaylistsFiltered = favPlaylists.filter(playlist => playlist.playlistId !== playlistId);
